@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import classes from '../BurgerIngredient/BurgerIngredient.module.css'
 
 class BurgerIngredient extends Component {
-  renter() {
+  render() {
+   
     let ingredient = null;
 
     switch (this.props.type) {
@@ -33,6 +34,7 @@ class BurgerIngredient extends Component {
       default:
         ingredient = null;
     }
+    return ingredient;
   }
 };
 
