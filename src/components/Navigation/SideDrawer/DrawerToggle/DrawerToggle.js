@@ -3,7 +3,11 @@ import classes from './DrawerToggle.module.css';
 
 const drawerToggle = (props) => {
  return (
-   <div onClick={props.clicked}>Menu</div>
+   <div className={classes.DrawerToggle} onClick={props.clicked}>
+     <div></div>
+     <div></div>
+     <div></div>
+   </div>
  );
 };
 
