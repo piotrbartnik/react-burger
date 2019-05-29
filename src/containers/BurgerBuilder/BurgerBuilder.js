@@ -73,7 +73,7 @@ class BurgerBuilder extends Component {
     const priceDeduction = INGREDIENT_PRICES[type];
     const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice - priceDeduction;
-    this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
+    this.setState({ totalPrice: newPrice.toFixed(2), ingredients: updatedIngredients });
     this.updatePurchaseState(updatedIngredients);
   }
 
@@ -87,29 +87,11 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContiunueHandler = () => {
-    // this.setState({ loading: true });
-    // const order = {
-    //   ingredients: this.state.ingredients,
-    //   price: this.state.totalPrice.toFixed(2),
-    //   customer: {
-    //     name: "Pioter B",
-    //     addres: {
-    //       street: 'Test1',
-    //       zip: "44-303",
-    //       country: "poland"
-    //     },
-    //     email: 'test@o2.pl',
-    //     time: 'fast'
-    //   }
-    // }
-
-    // axios.post('/order.json', order)
-    //   .then(response => { this.setState({ loading: false, purchasing: false }) })
-    //   .catch(error => { this.setState({ loading: false, purchasing: false }) });
     const queryParams = [];
     for (let i in this.state.ingredients) {
       queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
     }
+    queryParams.push('price' + this.state.totalPrice)
     const queryString = queryParams.join('&')
     this.props.history.push(
       {
