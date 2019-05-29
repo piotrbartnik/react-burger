@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import Button from '../../../components/UI/Button/Button';
 import classes from './ContactData.module.css';
 import axios from '../../../axios-order';
+import Spinner from '../../../components/UI/Spinner/Spinner'
 
-class COntactData extends Component {
+class ContactData extends Component {
   state = {
     name: '',
-    email: '', 
+    email: '',
     adress: {
       street: '',
       postalCode: ''
@@ -16,11 +17,10 @@ class COntactData extends Component {
 
   orderHandler = (event) => {
     event.preventDefault();
-    console.log(this.props.ingredients)
     this.setState({ loading: true });
     const order = {
-      ingredients: this.state.ingredients,
-      price: this.props,
+      ingredients: this.props.ingredients,
+      price: this.props.price,
       customer: {
         name: "Pioter B",
         addres: {
@@ -34,24 +34,32 @@ class COntactData extends Component {
     }
 
     axios.post('/order.json', order)
-      .then(response => { this.setState({ loading: false, purchasing: false }) })
-      .catch(error => { this.setState({ loading: false, purchasing: false }) });
+      .then(response => {
+        console.log(order)
+        this.setState({ loading: false });
+        this.props.history.push('/')
+      })
+      .catch(error => { this.setState({ loading: false }) });
   }
 
   render() {
+    let form = (<form>
+      <input className={classes.Input} type="text" name="name" placeholder="your name" />
+      <input className={classes.Input} type="email" name="email" placeholder="email" />
+      <input className={classes.Input} type="text" name="street" placeholder="street" />
+      <input className={classes.Input} type="text" name="postal" placeholder="postal" />
+      <Button btnType="Success" clicked={this.orderHandler}>Order</Button>
+    </form>);
+    if (this.state.loading) {
+      form = <Spinner />
+    }
     return (
       <div className={classes.ContactData}>
         <h4>Enter Your COntact Data</h4>
-        <form>
-          <input className={classes.Input} type="text" name="name" placeholder="your name" />
-          <input className={classes.Input} type="email" name="email" placeholder="email" />
-          <input className={classes.Input} type="text" name="street" placeholder="street" />
-          <input className={classes.Input} type="text" name="postal" placeholder="postal" />
-          <Button btnType="Success" clicked={this.orderHandler}>Order</Button>
-        </form>
+        {form}
       </div>
     );
   }
 }
 
-export default COntactData;
+export default ContactData;
