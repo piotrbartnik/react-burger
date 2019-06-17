@@ -19,6 +19,7 @@ const INGREDIENT_PRICES = {
 }
 class BurgerBuilder extends Component {
   state = {
+    totalPrice: 4,
     purchasing: false,
     loading: false,
     error: false
