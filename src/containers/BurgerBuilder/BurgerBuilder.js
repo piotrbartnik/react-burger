@@ -34,7 +34,7 @@ class BurgerBuilder extends Component {
   updatePurchaseState(ingredients) {
 
     let sum = Object.keys(ingredients).map(igKey => { return ingredients[igKey] }).reduce((a, b) => a += b);
-    this.setState({ purchasable: sum > 0 });
+    return sum > 0;
 
   }
 
@@ -49,18 +49,7 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContiunueHandler = () => {
-    const queryParams = [];
-    for (let i in this.state.ings) {
-      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ings[i]))
-    }
-    queryParams.push('price=' + this.state.totalPrice)
-    const queryString = queryParams.join('&')
-    this.props.history.push(
-      {
-        pathname: '/checkout',
-        search: '?' + queryString   
-      }
-    )
+      this.props.history.push('/checkout')
   }
 
   render() {
@@ -80,7 +69,7 @@ class BurgerBuilder extends Component {
       burger = (
         <Aux>
           <Burger ingredients={this.props.ings} />
-          <BuildControls ordered={this.purchaseHandler} purchasable={this.state.purchasable} price={this.props.price} ingredientAdded={this.props.onIngredientAdded} ingredientDeleted={this.props.onIngredientRemoved} disabled={disabledInfo} />
+          <BuildControls ordered={this.purchaseHandler} purchasable={this.updatePurchaseState(this.props.ings)} price={this.props.price} ingredientAdded={this.props.onIngredientAdded} ingredientDeleted={this.props.onIngredientRemoved} disabled={disabledInfo} />
         </Aux>);
       orderSummary = <OrderSummary price={this.props.price} purchaseCanceled={this.purchaseCancelHandler} purchaseContinue={this.purchaseContiunueHandler} ingredients={this.props.ings} />;
     } 
