@@ -4,31 +4,21 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/BuildControls/OrderSummary/OrderSummary';
-import axios from '../../axios-order';
 import Spinner from '../../../src/components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandles';
 import { connect } from 'react-redux';
-import * as burgerBuilderActions from '../../store/actions/index'
+import * as burgerBuilderActions from '../../store/actions/index';
+import axios from '../../axios-order';
 
 
 
 class BurgerBuilder extends Component {
   state = {
-    purchasing: false,
-    loading: false,
-    error: false
+    purchasing: false
   }
 
   componentDidMount() {
-    // console.log(this.props)
-    // axios.get('https://burger-order-21bd7.firebaseio.com/ingredients.json')
-    //   .then(response => {
-    //     this.setState({ ingredients: response.data })
-    //   }
-    //   )
-    //   .catch(error => {
-    //     this.setState({ error: true })
-    //   })
+    console.log(this.props)
   }
 
   updatePurchaseState(ingredients) {
@@ -49,7 +39,7 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContiunueHandler = () => {
-      this.props.history.push('/checkout')
+    this.props.history.push('/checkout')
   }
 
   render() {
@@ -72,9 +62,6 @@ class BurgerBuilder extends Component {
           <BuildControls ordered={this.purchaseHandler} purchasable={this.updatePurchaseState(this.props.ings)} price={this.props.price} ingredientAdded={this.props.onIngredientAdded} ingredientDeleted={this.props.onIngredientRemoved} disabled={disabledInfo} />
         </Aux>);
       orderSummary = <OrderSummary price={this.props.price} purchaseCanceled={this.purchaseCancelHandler} purchaseContinue={this.purchaseContiunueHandler} ingredients={this.props.ings} />;
-    } 
-    if (this.state.loading) {
-      orderSummary = <Spinner />
     }
     return (
       <Aux>
