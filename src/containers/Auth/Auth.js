@@ -69,7 +69,7 @@ class Auth extends Component {
         touched: true
       }
     }
-    // this.setState(constrols: updatedControls)
+    this.setState({constrols: updatedControls})
   }
 
   render() {
