@@ -70,7 +70,7 @@ class Auth extends Component {
       }
     }
     this.setState({constrols: updatedControls})
-  }
+  };
 
   render() {
     const formElementsArray = [];
