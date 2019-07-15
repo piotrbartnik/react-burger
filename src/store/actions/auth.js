@@ -27,8 +27,16 @@ export const auth = (email, password) => {
     const authData = {
       email: email,
       password: password,
-      returnsecureToken: true
+      returnSecureToken: true
     }
-    axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=AIzaSyDNcE6kIAq2j4ISbwYdzCj5XIp13neLWRg')
+    axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDNcE6kIAq2j4ISbwYdzCj5XIp13neLWRg', authData)
+    .then(response => {
+      console.log(response);
+      dispatch(authSuccess(response.data))
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch(authFail(err))
+    })
   }
 }
