@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Layout from '../src/hoc/Layout/Layout';
 import BurgerBuilder from '../src/containers/BurgerBuilder/BurgerBuilder';
-import Checkout from './containers/Checkout/Checkout';
+
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
-import Orders from './containers/Checkout/Orders/Orders';
-import Auth from './containers/Auth/Auth';
+
 import Logout from './containers/Auth/Logout/Logout';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
