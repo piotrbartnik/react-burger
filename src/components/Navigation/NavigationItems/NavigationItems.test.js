@@ -4,7 +4,7 @@ import NavigationItems from './NavigationItems';
 import React from 'react';
 import NavigationItem from './NavigationItem/NavigationItem';
 
-configure({adapter: new Adapter()})
+configure({ adapter: new Adapter() })
 
 describe('<NavigationsItems />', () => {
   let wrapper;
@@ -12,12 +12,17 @@ describe('<NavigationsItems />', () => {
     wrapper = shallow(<NavigationItems />);
   });
 
-  it('sould render two <nav> elements if not auth', () => {    
+  it('sould render two <nav> elements if not auth', () => {
     expect(wrapper.find(NavigationItem)).toHaveLength(2)
   });
 
-  it('sould render three <nav> elements if auth', () => { 
-    wrapper.setProps({isAuthenticated: true})
+  it('sould render three <nav> elements if auth', () => {
+    wrapper.setProps({ isAuthenticated: true })
     expect(wrapper.find(NavigationItem)).toHaveLength(3)
+  });
+
+  it('sould render three <nav> elements if auth', () => {
+    wrapper.setProps({ isAuthenticated: true })
+    expect(wrapper.contains(<NavigationItem link="/logout">Logout</NavigationItem>)).toEqual(true);
   });
 })
