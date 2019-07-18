@@ -7,8 +7,17 @@ import NavigationItem from './NavigationItem/NavigationItem';
 configure({adapter: new Adapter()})
 
 describe('<NavigationsItems />', () => {
-  it('sould render two <nav> elements if not auth', () => {
-    const wrapper = shallow(<NavigationItems />);
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<NavigationItems />);
+  });
+
+  it('sould render two <nav> elements if not auth', () => {    
     expect(wrapper.find(NavigationItem)).toHaveLength(2)
+  });
+
+  it('sould render three <nav> elements if auth', () => { 
+    wrapper.setProps({isAuthenticated: true})
+    expect(wrapper.find(NavigationItem)).toHaveLength(3)
   });
 })
